@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Northstar.Coordinator")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ba1d3c7b9201e375acbba97bbe0f12774433364c")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+bd397c27d87e5c7473e8f596d6f57371fa8ca069")]
 [assembly: System.Reflection.AssemblyProductAttribute("Northstar.Coordinator")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Northstar.Coordinator")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

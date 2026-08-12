@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "mvLQT7Z/zZo=",
+  "dgSpecHash": "GYEQyMO7nWQ=",
   "success": true,
-  "projectFilePath": "C:\\Users\\brani\\source\\repos\\northstar-coordinator\\Northstar.Coordinator\\Northstar.Coordinator.csproj",
+  "projectFilePath": "C:\\Users\\brani\\source\\repos\\northstar-coordinator-foundry-agent\\Northstar.Coordinator.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\brani\\.nuget\\packages\\azure.ai.extensions.openai\\2.1.0-beta.4\\azure.ai.extensions.openai.2.1.0-beta.4.nupkg.sha512",
     "C:\\Users\\brani\\.nuget\\packages\\azure.ai.projects\\2.1.0-beta.4\\azure.ai.projects.2.1.0-beta.4.nupkg.sha512",

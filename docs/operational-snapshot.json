@@ -1,0 +1,20 @@
+{
+  "scenarioId": "northstar-c1048",
+  "customerId": "C-1048",
+  "subscription": {
+    "previousPlan": "Standard",
+    "currentPlan": "Enterprise"
+  },
+  "entitlement": {
+    "analyticsEntitlement": "Disabled",
+    "expectedAnalyticsEntitlement": "Enabled",
+    "provisioningStatus": "SyncFailed"
+  },
+  "serviceHealth": {
+    "service": "analytics",
+    "status": "Healthy",
+    "activeIncident": false
+  },
+  "dataClassification": "SyntheticTrainingData",
+  "snapshotVersion": "northstar-ops-v1"
+}

@@ -1764,11 +1764,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\brani\\source\\repos\\northstar-coordinator\\Northstar.Coordinator\\Northstar.Coordinator.csproj",
+      "projectUniqueName": "C:\\Users\\brani\\source\\repos\\northstar-coordinator-foundry-agent\\Northstar.Coordinator.csproj",
       "projectName": "Northstar.Coordinator",
-      "projectPath": "C:\\Users\\brani\\source\\repos\\northstar-coordinator\\Northstar.Coordinator\\Northstar.Coordinator.csproj",
+      "projectPath": "C:\\Users\\brani\\source\\repos\\northstar-coordinator-foundry-agent\\Northstar.Coordinator.csproj",
       "packagesPath": "C:\\Users\\brani\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\brani\\source\\repos\\northstar-coordinator\\Northstar.Coordinator\\obj\\",
+      "outputPath": "C:\\Users\\brani\\source\\repos\\northstar-coordinator-foundry-agent\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

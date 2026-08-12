@@ -1,0 +1,24 @@
+NORTHSTAR OPS LAB — PUBLISH CHECKLIST
+
+GitHub account: trevoirwilliams
+Repository name: northstar-ops-lab
+Expected GitHub Pages base URL:
+https://trevoirwilliams.github.io/northstar-ops-lab
+
+Expected operational endpoint:
+https://trevoirwilliams.github.io/northstar-ops-lab/operational-snapshot.json
+
+Before recording:
+[ ] Create repository `northstar-ops-lab` under `trevoirwilliams`.
+[ ] Copy the contents of this project into the repository.
+[ ] Commit and push the files.
+[ ] In GitHub: Settings -> Pages.
+[ ] Build and deployment: Deploy from a branch.
+[ ] Branch: main.
+[ ] Folder: /docs.
+[ ] Save and wait for Pages deployment.
+[ ] Open the expected operational endpoint in a browser.
+[ ] Confirm the JSON is returned.
+[ ] Open lab-assets/northstar-operations.openapi.json.
+[ ] Confirm the server URL is `https://trevoirwilliams.github.io/northstar-ops-lab`.
+[ ] Upload/paste the OpenAPI specification into Foundry.

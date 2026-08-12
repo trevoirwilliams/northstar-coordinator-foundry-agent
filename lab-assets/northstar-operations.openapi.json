@@ -1,0 +1,110 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Northstar Operations API",
+    "description": "Read-only synthetic operational evidence for the Northstar training scenario.",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://trevoirwilliams.github.io/northstar-ops-lab"
+    }
+  ],
+  "paths": {
+    "/operational-snapshot.json": {
+      "get": {
+        "operationId": "get_operational_snapshot",
+        "summary": "Get the current Northstar operational snapshot",
+        "description": "Returns the current synthetic entitlement and analytics service-health evidence for customer C-1048. Use this operation when current operational evidence is required for the C-1048 investigation.",
+        "responses": {
+          "200": {
+            "description": "Current synthetic Northstar operational snapshot",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "scenarioId",
+                    "customerId",
+                    "subscription",
+                    "entitlement",
+                    "serviceHealth",
+                    "dataClassification",
+                    "snapshotVersion"
+                  ],
+                  "properties": {
+                    "scenarioId": {
+                      "type": "string"
+                    },
+                    "customerId": {
+                      "type": "string"
+                    },
+                    "subscription": {
+                      "type": "object",
+                      "required": [
+                        "previousPlan",
+                        "currentPlan"
+                      ],
+                      "properties": {
+                        "previousPlan": {
+                          "type": "string"
+                        },
+                        "currentPlan": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "entitlement": {
+                      "type": "object",
+                      "required": [
+                        "analyticsEntitlement",
+                        "expectedAnalyticsEntitlement",
+                        "provisioningStatus"
+                      ],
+                      "properties": {
+                        "analyticsEntitlement": {
+                          "type": "string"
+                        },
+                        "expectedAnalyticsEntitlement": {
+                          "type": "string"
+                        },
+                        "provisioningStatus": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "serviceHealth": {
+                      "type": "object",
+                      "required": [
+                        "service",
+                        "status",
+                        "activeIncident"
+                      ],
+                      "properties": {
+                        "service": {
+                          "type": "string"
+                        },
+                        "status": {
+                          "type": "string"
+                        },
+                        "activeIncident": {
+                          "type": "boolean"
+                        }
+                      }
+                    },
+                    "dataClassification": {
+                      "type": "string"
+                    },
+                    "snapshotVersion": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
