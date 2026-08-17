@@ -4,8 +4,10 @@ using Azure.AI.Projects.Agents;
 using Azure.Identity;
 using Microsoft.Agents.AI;
 using Microsoft.Agents.AI.Foundry;
+using Microsoft.Agents.AI.Workflows;
 using Northstar.Coordinator.Agents;
 using Northstar.Coordinator.Models;
+using Northstar.Coordinator.Workflows;
 
 var projectEndpoint = "https://northstar-foundry-dev-tw2608.services.ai.azure.com/api/projects/northstar-ops-dev";
 var agentName = "northstar-coordinator";
@@ -61,57 +63,136 @@ AIAgent diagnosticsSpecialist =
         projectClient,
         modelDeployment);
 
-AgentSession entitlementSession =
-    await entitlementSpecialist.CreateSessionAsync();
+Workflow investigationWorkflow =
+    CaseInvestigationWorkflow.Create(
+        entitlementSpecialist,
+        diagnosticsSpecialist,
+        northstar);
 
-AgentSession diagnosticsSession =
-    await diagnosticsSpecialist.CreateSessionAsync();
-
-Console.WriteLine();
-Console.WriteLine("Request");
-Console.WriteLine("-------");
-Console.WriteLine(prompt);
-Console.WriteLine();
-
-var response = await northstar.RunAsync(
-    prompt,
-    session);
-
-
-Console.WriteLine(response);
+var investigationRequest =
+    new InvestigationRequest(
+        prompt);
 
 
 Console.WriteLine();
-Console.WriteLine("2. Entitlement Specialist");
-Console.WriteLine("-------------------------");
 
-AgentResponse<SpecialistAssessment> entitlementResponse =
-    await entitlementSpecialist.RunAsync<SpecialistAssessment>(
-        prompt,
-        entitlementSession);
+Console.WriteLine(
+    "Support Request");
 
-var entitlementResponseJson = JsonSerializer.Serialize(
-    entitlementResponse.Result,
-    new JsonSerializerOptions
+Console.WriteLine(
+    "---------------");
+
+Console.WriteLine(
+    prompt);
+
+Console.WriteLine();
+
+NorthstarInvestigationResult? result = null;
+
+await using StreamingRun workflowRun = await InProcessExecution
+    .Concurrent.RunStreamingAsync(investigationWorkflow, investigationRequest);
+
+await foreach (var workflowEvent in workflowRun.WatchStreamAsync())
+{
+    switch (workflowEvent)
+    {
+        case WorkflowOutputEvent outputEvent
+            when outputEvent.Is<NorthstarInvestigationResult>():
+
+            result = outputEvent.As<NorthstarInvestigationResult>();
+
+            break;
+
+
+        case WorkflowErrorEvent errorEvent:
+
+            Console.WriteLine();
+
+            Console.WriteLine("[WORKFLOW ERROR]");
+
+            Console.WriteLine(errorEvent.Exception?.Message ??
+                "Unknown workflow error.");
+
+            break;
+
+
+        case ExecutorFailedEvent executorFailed:
+
+            Console.WriteLine();
+
+            Console.WriteLine($"[EXECUTOR FAILED] " +
+                $"{executorFailed.ExecutorId}");
+
+            break;
+    }
+}
+
+if (result is null)
+{
+    throw new InvalidOperationException(
+        "The workflow did not produce a final " +
+        "Northstar investigation result.");
+}
+
+
+var jsonOptions =
+    new JsonSerializerOptions(JsonSerializerDefaults.Web)
     {
         WriteIndented = true
-    });
-Console.WriteLine(entitlementResponseJson);
+    };
+
+Console.WriteLine();
+
+Console.WriteLine(
+    "=================================");
+
+Console.WriteLine(
+    "SPECIALIST EVIDENCE");
+
+Console.WriteLine(
+    "=================================");
 
 
 Console.WriteLine();
-Console.WriteLine("3. Diagnostics Specialist");
-Console.WriteLine("-------------------------");
 
-AgentResponse<SpecialistAssessment> diagnosticsResponse =
-    await diagnosticsSpecialist.RunAsync<SpecialistAssessment>(
-        prompt,
-        diagnosticsSession);
+Console.WriteLine(
+    "Entitlement Specialist");
 
-var diagnosticsResponseJson = JsonSerializer.Serialize(
-    entitlementResponse.Result,
-    new JsonSerializerOptions
-    {
-        WriteIndented = true
-    });
-Console.WriteLine(diagnosticsResponseJson);
+Console.WriteLine(
+    "----------------------");
+
+Console.WriteLine(
+    JsonSerializer.Serialize(
+        result.EntitlementAssessment,
+        jsonOptions));
+
+
+Console.WriteLine();
+
+Console.WriteLine(
+    "Diagnostics Specialist");
+
+Console.WriteLine(
+    "----------------------");
+
+Console.WriteLine(
+    JsonSerializer.Serialize(
+        result.DiagnosticsAssessment,
+        jsonOptions));
+
+
+Console.WriteLine();
+
+Console.WriteLine(
+    "=================================");
+
+Console.WriteLine(
+    "NORTHSTAR COORDINATOR");
+
+Console.WriteLine(
+    "=================================");
+
+Console.WriteLine();
+
+Console.WriteLine(
+    result.FinalResponse);
