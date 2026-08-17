@@ -315,6 +315,15 @@ FodyWeavers.xsd
 # Project-specific additions
 ###############################################################
 
+# Generated .NET build outputs should never be tracked
+# Remove these from the index with: git rm --cached -r obj bin
+[Oo]bj/
+[Bb]in/
+obj/**/*.cache
+obj/**/*.AssemblyInfo.*
+obj/**/*.GeneratedMSBuildEditorConfig.editorconfig
+*.AssemblyReference.cache
+
 # Machine-specific NuGet restore files stamped with hostname
 # (e.g. project.assets-DESKTOP-*.json, project.nuget-MSI.cache)
 project.assets-*.json
@@ -347,3 +356,7 @@ $RECYCLE.BIN/
 .DS_Store
 .AppleDouble
 .LSOverride
+obj/Debug/net10.0/Northstar.Coordinator.AssemblyInfo.cs
+obj/Debug/net10.0/Northstar.Coordinator.AssemblyInfoInputs.cache
+obj/Debug/net10.0/Northstar.Coordinator.assets.cache
+obj/Debug/net10.0/Northstar.Coordinator.GeneratedMSBuildEditorConfig.editorconfig
