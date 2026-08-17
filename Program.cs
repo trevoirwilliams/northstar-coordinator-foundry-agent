@@ -90,7 +90,7 @@ Console.WriteLine();
 NorthstarInvestigationResult? result = null;
 
 await using StreamingRun workflowRun = await InProcessExecution
-    .Concurrent.RunStreamingAsync(investigationWorkflow, investigationRequest);
+    .RunStreamingAsync(investigationWorkflow, investigationRequest);
 
 await foreach (var workflowEvent in workflowRun.WatchStreamAsync())
 {
