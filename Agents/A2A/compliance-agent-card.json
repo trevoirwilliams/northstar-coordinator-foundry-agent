@@ -1,0 +1,19 @@
+{
+  "agent_card": {
+    "description": "Reviews Northstar support investigations for evidence quality, unsupported claims, restricted actions, and approval requirements.",
+    "version": "1.0",
+    "skills": [
+      {
+        "id": "review-investigation",
+        "name": "Review Northstar Investigation",
+        "description": "Reviews evidence alignment and determines whether human approval is required."
+      }
+    ]
+  },
+  "agent_endpoint": {
+    "protocol_configuration": {
+      "responses": {},
+      "a2a": {}
+    }
+  }
+}

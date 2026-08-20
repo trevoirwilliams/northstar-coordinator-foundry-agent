@@ -11,7 +11,7 @@ using Northstar.Coordinator.Workflows;
 
 var projectEndpoint = "https://northstar-foundry-dev-tw2608.services.ai.azure.com/api/projects/northstar-ops-dev";
 var agentName = "northstar-coordinator";
-var agentVersion = "10";
+var agentVersion = "12";
 var modelDeployment = "gpt-5.4-mini";
 
 Console.Write("Enter a prompt for the Northstar Coordinator agent: ");
@@ -76,14 +76,11 @@ var investigationRequest =
 
 Console.WriteLine();
 
-Console.WriteLine(
-    "Support Request");
+Console.WriteLine("Support Request");
 
-Console.WriteLine(
-    "---------------");
+Console.WriteLine("---------------");
 
-Console.WriteLine(
-    prompt);
+Console.WriteLine(prompt);
 
 Console.WriteLine();
 
@@ -143,23 +140,18 @@ var jsonOptions =
 
 Console.WriteLine();
 
-Console.WriteLine(
-    "=================================");
+Console.WriteLine("=================================");
 
-Console.WriteLine(
-    "SPECIALIST EVIDENCE");
+Console.WriteLine("SPECIALIST EVIDENCE");
 
-Console.WriteLine(
-    "=================================");
+Console.WriteLine("=================================");
 
 
 Console.WriteLine();
 
-Console.WriteLine(
-    "Entitlement Specialist");
+Console.WriteLine("Entitlement Specialist");
 
-Console.WriteLine(
-    "----------------------");
+Console.WriteLine("----------------------");
 
 Console.WriteLine(
     JsonSerializer.Serialize(
@@ -169,11 +161,9 @@ Console.WriteLine(
 
 Console.WriteLine();
 
-Console.WriteLine(
-    "Diagnostics Specialist");
+Console.WriteLine("Diagnostics Specialist");
 
-Console.WriteLine(
-    "----------------------");
+Console.WriteLine("----------------------");
 
 Console.WriteLine(
     JsonSerializer.Serialize(
@@ -183,16 +173,12 @@ Console.WriteLine(
 
 Console.WriteLine();
 
-Console.WriteLine(
-    "=================================");
+Console.WriteLine("=================================");
 
-Console.WriteLine(
-    "NORTHSTAR COORDINATOR");
+Console.WriteLine("NORTHSTAR COORDINATOR");
 
-Console.WriteLine(
-    "=================================");
+Console.WriteLine("=================================");
 
 Console.WriteLine();
 
-Console.WriteLine(
-    result.FinalResponse);
+Console.WriteLine(result.FinalResponse);
