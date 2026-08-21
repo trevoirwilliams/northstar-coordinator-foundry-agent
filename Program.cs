@@ -9,10 +9,10 @@ using Northstar.Coordinator.Agents;
 using Northstar.Coordinator.Models;
 using Northstar.Coordinator.Workflows;
 
-var projectEndpoint = "https://northstar-foundry-dev-tw2608.services.ai.azure.com/api/projects/northstar-ops-dev";
+var projectEndpoint = "YOUR_PROJECT_ENDPOINT_HERE"; // Replace with your actual project endpoint
 var agentName = "northstar-coordinator";
-var agentVersion = "12";
-var modelDeployment = "gpt-5.4-mini";
+var agentVersion = "YOUR_AGENT_VERSION_HERE"; // Replace with your actual agent version
+var modelDeployment = "YOUR_MODEL_DEPLOYMENT_HERE"; // Replace with your actual model deployment
 
 Console.Write("Enter a prompt for the Northstar Coordinator agent: ");
 var prompt = Console.ReadLine();
@@ -50,9 +50,6 @@ Console.WriteLine(
 FoundryAgent northstar =
     projectClient.AsAIAgent(testedVersion);
 
-var session = await northstar.CreateSessionAsync();
-
-
 AIAgent entitlementSpecialist =
     EntitlementSpecialist.Create(
         projectClient,
@@ -85,6 +82,7 @@ Console.WriteLine(prompt);
 Console.WriteLine();
 
 NorthstarInvestigationResult? result = null;
+string? workflowFailure = null;
 
 await using StreamingRun workflowRun = await InProcessExecution
     .RunStreamingAsync(investigationWorkflow, investigationRequest);
@@ -103,22 +101,23 @@ await foreach (var workflowEvent in workflowRun.WatchStreamAsync())
 
         case WorkflowErrorEvent errorEvent:
 
+            workflowFailure = errorEvent.Exception?.Message ??
+                "Unknown workflow error.";
+
             Console.WriteLine();
-
             Console.WriteLine("[WORKFLOW ERROR]");
-
-            Console.WriteLine(errorEvent.Exception?.Message ??
-                "Unknown workflow error.");
+            Console.WriteLine(workflowFailure);
 
             break;
 
 
         case ExecutorFailedEvent executorFailed:
 
-            Console.WriteLine();
+            workflowFailure = $"Executor failed: {executorFailed.ExecutorId}";
 
-            Console.WriteLine($"[EXECUTOR FAILED] " +
-                $"{executorFailed.ExecutorId}");
+            Console.WriteLine();
+            Console.WriteLine("[EXECUTOR FAILED]");
+            Console.WriteLine(executorFailed.ExecutorId);
 
             break;
     }
@@ -126,9 +125,24 @@ await foreach (var workflowEvent in workflowRun.WatchStreamAsync())
 
 if (result is null)
 {
-    throw new InvalidOperationException(
-        "The workflow did not produce a final " +
-        "Northstar investigation result.");
+    Console.WriteLine();
+    Console.WriteLine("=================================");
+
+    Console.WriteLine("INVESTIGATION INCOMPLETE");
+
+    Console.WriteLine("=================================");
+
+    Console.WriteLine();
+
+    Console.WriteLine(workflowFailure ??
+        "The workflow completed without producing a result.");
+
+    Console.WriteLine();
+
+    Console.WriteLine("No support recommendation should be treated " +
+        "as approved.");
+
+    return;
 }
 
 
