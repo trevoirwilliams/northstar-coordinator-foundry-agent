@@ -9,10 +9,10 @@ using Northstar.Coordinator.Agents;
 using Northstar.Coordinator.Models;
 using Northstar.Coordinator.Workflows;
 
-var projectEndpoint = "YOUR_PROJECT_ENDPOINT_HERE"; // Replace with your actual project endpoint
+var projectEndpoint = "https://northstar-foundry-dev-tw2608.services.ai.azure.com/api/projects/northstar-ops-dev"; // Replace with your actual project endpoint
 var agentName = "northstar-coordinator";
-var agentVersion = "YOUR_AGENT_VERSION_HERE"; // Replace with your actual agent version
-var modelDeployment = "YOUR_MODEL_DEPLOYMENT_HERE"; // Replace with your actual model deployment
+var agentVersion = "12"; // Replace with your actual agent version
+var modelDeployment = "gpt-5.4-mini"; // Replace with your actual model deployment
 
 Console.Write("Enter a prompt for the Northstar Coordinator agent: ");
 var prompt = Console.ReadLine();
