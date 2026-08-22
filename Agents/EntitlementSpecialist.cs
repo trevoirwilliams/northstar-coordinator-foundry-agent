@@ -9,7 +9,8 @@ public static class EntitlementSpecialist
 {
     public static AIAgent Create(
         AIProjectClient projectClient,
-        string modelDeployment)
+        string modelDeployment,
+        string telemetrySourceName)
     {
         AITool entitlementTool =
             AIFunctionFactory.Create(
@@ -44,6 +45,19 @@ public static class EntitlementSpecialist
             - Set EvidenceSufficient to false whenever the requested
               conclusion cannot be supported by your available evidence.
             """,
-            tools: [entitlementTool]);
+            tools: [entitlementTool],
+            clientFactory: client => client.AsBuilder()
+                            .UseFunctionInvocation()
+                            .UseOpenTelemetry(
+                                sourceName: telemetrySourceName,
+                                configure: cfg => cfg.EnableSensitiveData = true)
+                            .Build())
+            .AsBuilder()
+            .UseOpenTelemetry(
+                sourceName: telemetrySourceName,
+                configure:
+                    cfg =>
+                        cfg.EnableSensitiveData = true)
+            .Build();
     }
 }

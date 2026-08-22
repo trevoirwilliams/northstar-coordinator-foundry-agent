@@ -10,7 +10,8 @@ public static class CaseInvestigationWorkflow
     public static Workflow Create(
         AIAgent entitlementSpecialist,
         AIAgent diagnosticsSpecialist,
-        AIAgent northstarCoordinator)
+        AIAgent northstarCoordinator,
+        System.Diagnostics.ActivitySource activitySource)
     {
         // ---------------------------------------------------------
         // Workflow entry point
@@ -141,7 +142,10 @@ public static class CaseInvestigationWorkflow
                 concurrently, then returns both assessments to
                 the existing Northstar Coordinator for synthesis.
                 """)
-
+                
+            .WithOpenTelemetry(
+                configure: cfg => cfg.EnableSensitiveData = true,
+                activitySource: activitySource)
             .Build();
     }
 }
