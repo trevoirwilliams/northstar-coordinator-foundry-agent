@@ -14,10 +14,10 @@ using OpenTelemetry;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
 
-var projectEndpoint = "https://northstar-foundry-dev-tw2608.services.ai.azure.com/api/projects/northstar-ops-dev"; // Replace with your actual project endpoint
+var projectEndpoint = "YOUR_PROJECT_ENDPOINT"; // Replace with your actual project endpoint
 var agentName = "northstar-coordinator";
-var agentVersion = "12"; // Replace with your actual agent version
-var modelDeployment = "gpt-5.4-mini"; // Replace with your actual model deployment
+var agentVersion = "YOUR_AGENT_VERSION"; // Replace with your actual agent version
+var modelDeployment = "YOUR_MODEL_DEPLOYMENT"; // Replace with your actual model deployment
 
 const string telemetrySourceName = "Northstar.Coordinator";
 const string telemetryServiceName = "northstar-coordinator-local";
